@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><strong>Post date</strong> {{ post.date }}</p>
+  <p><strong>Author:</strong> {{ post.author.name }}</p>
+  <p><strong>Description:</strong></p>
+  {{ post.content }}
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Comments</h4>
+    <hr>
+    {% for comm in post.comment_set.all %}
+      <p>{{ comm.author }} ({{ comm.date }}) - {{ comm.content }}</p>
+      {% if user.is_authenticated %}
+        {% if perms.blog.can_delete_comment or comm.author.pk == user.pk %}
+          <p><a href="{% url 'delete-comment' comm.pk %}">Delete comment</a></p>
+        {% endif %}
+      {% endif %}
+      <hr>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <p><a href="{% url 'new-comment' post.pk %}">Add new comment</a></p>
+    {% else %}
+      <p><a href="{% url 'login' %}">Login</a> to comment</p>
+    {% endif %}
+{% endblock %}

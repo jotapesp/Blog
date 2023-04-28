@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Blogs Sinceros</h1>
+  {% if blog_list %}
+    <ul>
+    {% for blog in blog_list %}
+      <li><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a> ({{ blog.date }}) - <a href="{{ blog.author.get_absolute_url }}">{{ blog.author.username }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts to show.</p>
+  {% endif %}
+{% endblock %}

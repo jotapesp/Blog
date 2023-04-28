@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ blogger.name }}</h1>
+  <p>{{ blogger.birth }}</p>
+  <p><strong>User:</strong> {{ blogger.username }}</p>
+  <p><strong>Bio:</strong></p>
+  {{ blogger.bio }}
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Posts</h4>
+    <hr>
+    <ul>
+    {% for post in blogger.post_set.all %}
+      <li><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a> ({{ post.date }})</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

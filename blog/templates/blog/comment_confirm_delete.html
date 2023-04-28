@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+  <h1>Delete comment</h1>
+  <p>Delete comment</p>
+  "{{ comment.content }}"
+  <p>- created at {{ comment.date }} by {{ comment.user.username }}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete" />
+  </form>
+
+{% endblock %}

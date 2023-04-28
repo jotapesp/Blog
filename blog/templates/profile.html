@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Profile</h1>
+  {% if user.is_authenticated %}
+    <p>Welcome, <strong>{{ user.username }}</strong>!</p>
+    <p><strong>Email address:</strong> {{ user.email }}</p>
+
+    {% if perms.blog.can_post %}
+      <p><strong>Name:</strong> {{ user.blogger.name }}</p>
+      <p><strong>Birth:</strong> {{ user.blogger.birth }}</p>
+      <p><strong>Biography:</strong> {{ user.blogger.bio }}</p>
+    {% else %}
+      <p>Permissões: apenas ler conteúdo e comentar</p>
+    {% endif %}
+    <br />
+    <p><a href="{% url 'user-delete' user.pk %}">Delete account</a></p>
+  {% endif %}
+{% endblock %}
